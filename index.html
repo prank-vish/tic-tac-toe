@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-300">
+    <div class="flex flex-col w-full items-center">
+        <h1 class="text-center text-6xl font-bold tracking-wider text-cyan-900 m-4  my-6 ">Tic Tac Toe</h1>
+        <div class="flex flex-col bg-blue-200 px-16 py-16  items-center">
+            <!-- <h1 id="Turn" class="text-2xl text-black font-2xl p-2 m-3"></h1> -->
+            <div class="flex flex-row justify-center">
+                <button id="oneone" onclick="play('oneone')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+                <button id="onetwo" onclick="play('onetwo')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+                <button id="onethree" onclick="play('onethree')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+            </div>
+            <div class="flex flex-row justify-center">
+                <button id="twoone" onclick="play('twoone')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+                <button id="twotwo" onclick="play('twotwo')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+                <button id="twothree" onclick="play('twothree')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+            </div>
+            <div class="flex flex-row justify-center">
+                <button id="threeone" onclick="play('threeone')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+                <button id="threetwo" onclick="play('threetwo')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+                <button id="threethree" onclick="play('threethree')"
+                    class="w-28 h-28 bg-gray-400 border border-black text-3xl"></button>
+            </div>
+        </div>
+        <div id="start" class="text-center m-4 p-2">
+            <button id="" onclick="start()"
+                class="border px-2 font-semibold rounded-md border-black text-xl bg-white text-black">Start</button>
+        </div>
+        <div id="chance" class="hidden">
+            <div class="flex flex-col justify-center items-center w-full pb-4">
+                Who is going to play first ?
+                <div class="flex flex-row justify-around items-center w-1/2 mt-4">
+                    <button id="chanceX" onclick="chance('chanceX')"
+                        class="bg-black text-white px-4 py-1 rounded-md border border-black">X</button>
+                    <button id="chanceY" onclick="chance('chanceY')"
+                        class="bg-black text-white px-4 py-1 rounded-md border border-black">O</button>
+                </div>
+            </div>
+        </div>
+        <div id="turn" class=" m-4 hidden ">
+            <div class="flex flex-col justify-center items-center w-full">
+                <h1 id="Turn" class=" bg-gray-500 px-2 rounded-md font-semibold text-xl border border-black">Turn</h1>
+                <div class="flex flex-row justify-around items-center ">
+                    <button id="x" class="bg-black text-white px-4 py-1 rounded-md mx-4 my-4 border border-black">X</button>
+                    <button id="o" class="bg-black text-white px-4 py-1 rounded-md mx-4 my-4 border border-black">O</button>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="result"></div> -->
+        <h1 id="result" class="text-center font-bold text-2xl m-4 "></h1>
+        <div id="restart" class="text-center hidden ">
+            <button onclick="restart()" class="border px-2 font-semibold rounded-md border-black text-xl bg-white text-black">Restart</button>
+        </div>
+    </div>
+    <script>
+        let counter = 0;
+        let oneone = document.getElementById("oneone")
+        let onetwo = document.getElementById("onetwo")
+        let onethree = document.getElementById("onethree")
+        let twoone = document.getElementById("twoone")
+        let twotwo = document.getElementById("twotwo")
+        let twothree = document.getElementById("twothree")
+        let threeone = document.getElementById("threeone")
+        let threetwo = document.getElementById("threetwo")
+        let threethree = document.getElementById("threethree")
+        oneone.disabled = true
+        onetwo.disabled = true
+        onethree.disabled = true
+        twoone.disabled = true
+        twotwo.disabled = true
+        twothree.disabled = true
+        threeone.disabled = true
+        threetwo.disabled = true
+        threethree.disabled = true
+        // let a=false,b=false,c=false,d=false,e=false,f=false,g=false,h=false,i=false
+        let turn = true;
+        function start() {
+            document.getElementById("start").classList.add("hidden")
+            document.getElementById("chance").classList.remove("hidden")
+        }
+        function chance(e) {
+            document.getElementById("chance").classList.add("hidden")
+            document.getElementById("turn").classList.remove("hidden")
+            console.log(e)
+            if (e == 'chanceX') {
+                turn = true;
+                document.getElementById("o").disabled = true;
+                document.getElementById("o").style.backgroundColor = "white"
+            }
+            else {
+                turn = false;
+                document.getElementById("x").disabled = true;
+                document.getElementById("x").style.backgroundColor = "white"
+            }
+            oneone.disabled = false
+            onetwo.disabled = false
+            onethree.disabled = false
+            twoone.disabled = false
+            twotwo.disabled = false
+            twothree.disabled = false
+            threeone.disabled = false
+            threetwo.disabled = false
+            threethree.disabled = false
+
+        }
+
+        function play(e) {
+            counter++;
+            if (turn) {
+                document.getElementById(e).textContent = "X"
+                document.getElementById(e).disabled = true;
+                document.getElementById(e).style.backgroundColor = 'rgb(211, 211, 211)';
+                document.getElementById("x").disabled = true;
+                document.getElementById("o").style.backgroundColor = "black"
+                document.getElementById("o").disabled = false;
+                document.getElementById("x").style.backgroundColor = "white"
+
+                turn = !turn;
+            }
+            else {
+                document.getElementById(e).textContent = "O"
+                document.getElementById(e).disabled = true;
+                document.getElementById(e).style.backgroundColor = 'rgb(211, 211, 211)';
+                document.getElementById("o").disabled = true;
+                document.getElementById("x").style.backgroundColor = "black"
+                document.getElementById("x").disabled = false;
+                document.getElementById("o").style.backgroundColor = "white"
+                turn = !turn;
+            }
+            if ((oneone.textContent == 'O' && onetwo.textContent == 'O' && onethree.textContent == 'O') ||
+                (twoone.textContent == 'O' && twotwo.textContent == 'O' && twothree.textContent == 'O') ||
+                (threeone.textContent == 'O' && threetwo.textContent == 'O' && threethree.textContent == 'O') ||
+                (oneone.textContent == 'O' && twoone.textContent == 'O' && threeone.textContent == 'O') ||
+                (onetwo.textContent == 'O' && twotwo.textContent == 'O' && threetwo.textContent == 'O') ||
+                (onethree.textContent == 'O' && twothree.textContent == 'O' && threethree.textContent == 'O') ||
+                (oneone.textContent == 'O' && twotwo.textContent == 'O' && threethree.textContent == 'O') ||
+                (onethree.textContent == 'O' && twotwo.textContent == 'O' && threeone.textContent == 'O')
+            ) {
+                document.getElementById("result").innerHTML = "O WINS"
+                over();
+            }
+            else if (
+                (oneone.textContent == 'X' && onetwo.textContent == 'X' && onethree.textContent == 'X') ||
+                (twoone.textContent == 'X' && twotwo.textContent == 'X' && twothree.textContent == 'X') ||
+                (threeone.textContent == 'X' && threetwo.textContent == 'X' && threethree.textContent == 'X') ||
+                (oneone.textContent == 'X' && twoone.textContent == 'X' && threeone.textContent == 'X') ||
+                (onetwo.textContent == 'X' && twotwo.textContent == 'X' && threetwo.textContent == 'X') ||
+                (onethree.textContent == 'X' && twothree.textContent == 'X' && threethree.textContent == 'X') ||
+                (oneone.textContent == 'X' && twotwo.textContent == 'X' && threethree.textContent == 'X') ||
+                (onethree.textContent == 'X' && twotwo.textContent == 'X' && threeone.textContent == 'X')
+            ) {
+                document.getElementById("result").innerHTML = "X WINS"
+                over();
+            } else if (counter == 9) {
+                document.getElementById("result").innerHTML = "DRAW"
+                over();
+            }
+            console.log(e);
+
+        }
+
+
+        function over() {
+            oneone.disabled = true
+            onetwo.disabled = true
+            onethree.disabled = true
+            twoone.disabled = true
+            twotwo.disabled = true
+            twothree.disabled = true
+            threeone.disabled = true
+            threetwo.disabled = true
+            threethree.disabled = true
+            document.getElementById("turn").classList.add("hidden")
+            document.getElementById("restart").classList.remove("hidden")
+        }
+        function restart(){
+            window.location.reload()
+        }
+    </script>
+</body>
+
+</html>
